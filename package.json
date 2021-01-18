@@ -1,0 +1,18 @@
+{
+  "name": "login-and-register",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/mongodb": "^3.6.3",
+    "@types/node": "^14.14.21",
+    "mongodb": "^3.6.3",
+    "typescript": "^4.1.3"
+  }
+}
