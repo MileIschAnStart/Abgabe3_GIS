@@ -60,6 +60,7 @@ var Mongo = __importStar(require("mongodb"));
 var Url = __importStar(require("url"));
 var Http = __importStar(require("http"));
 var mongo;
+//Datenbank-Connection
 function DbConnect(url) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -74,16 +75,19 @@ function DbConnect(url) {
         });
     });
 }
+//zu Db verbinden
 DbConnect("mongodb+srv://mile:010408@mike.et3um.mongodb.net/projekt?retryWrites=true&w=majority");
+//in http-Server gehen
 var A08Server;
 (function (A08Server) {
     console.log("Starting server..");
+    //port aus Umgebungsvariabeln auslesen
     var port = Number(process.env.PORT);
-    if (!port)
+    if (!port) //wenn kein Port in den Umgebungsvariabeln gefunden wird, Port: 8100 nehmen
         port = 8100;
-    var server = Http.createServer();
-    server.addListener("request", onRequest);
-    server.addListener("listening", onListen);
+    var server = Http.createServer(); //http-Server wird erstellt
+    server.addListener("request", onRequest); //wenn Anfrage reinkommt, Funktion ausführen
+    server.addListener("listening", onListen); //wenn Server gestartet wird
     server.listen(port);
     function onListen() {
         console.log("Listening..");
@@ -98,18 +102,18 @@ var A08Server;
                         nachname = request.get('nachname');
                         password = request.get('password');
                         email = request.get('email');
-                        if (!vorname || !nachname || !password || !email) {
+                        if (!vorname || !nachname || !password || !email) { //wenn eines der Felder nicht gefüllt ist, dann wird der String zurückgegeben
                             return [2 /*return*/, "Nicht alle Pflichtfelder sind gefüllt."];
                         }
                         return [4 /*yield*/, mongo.db("projekt").collection("users").find({ email: email }).toArray()];
                     case 1:
                         result = _a.sent();
-                        if (result.length > 0) {
+                        if (result.length > 0) { // Wenn größer null: Es existiert bereits ein User
                             return [2 /*return*/, "Es gibt bereits einen Nutzer mit der Emailadresse " + email];
                         }
                         return [4 /*yield*/, mongo.db("projekt").collection("users").insertOne({ vorname: vorname, nachname: nachname, password: password, email: email })];
                     case 2:
-                        _a.sent();
+                        _a.sent(); //falls User noch nicht existiert, dann lege einen an
                         return [2 /*return*/, "User erfolgreich registriert!"];
                 }
             });
@@ -123,16 +127,16 @@ var A08Server;
                     case 0:
                         email = request.get('email');
                         password = request.get('password');
-                        if (!email || !password) {
+                        if (!email || !password) { //Falls eines der beiden nicht gesetzt ist, dann Fehlermeldung 
                             return [2 /*return*/, "Nicht alle Felder wurden ausgefüllt."];
                         }
                         return [4 /*yield*/, mongo.db("projekt").collection("users").find({ email: email, password: password }).toArray()];
                     case 1:
                         result = _a.sent();
-                        if (result.length > 0) {
+                        if (result.length > 0) { //Wird ein Nutzer gefunden, dann erfolgreich
                             return [2 /*return*/, "Erfolgreich angemeldet!"];
                         }
-                        return [2 /*return*/, "Diese Benutzername/Passwort-Kombination konnte nicht gefunden werden"];
+                        return [2 /*return*/, "Diese Benutzername/Passwort-Kombination konnte nicht gefunden werden"]; //Falls Funktion vorher nicht beendet wurde, Fehlermeldung für die falsche KombinationF
                 }
             });
         });
@@ -159,7 +163,7 @@ var A08Server;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        antwortText = 'Die angefragte URL konnte nicht gefunden werden (404).';
+                        antwortText = 'Die URL konnte nicht gefunden werden.';
                         if (!url) {
                             console.log("URL ist leer");
                             return [2 /*return*/, antwortText];
