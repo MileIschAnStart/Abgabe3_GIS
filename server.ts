@@ -76,7 +76,7 @@ export namespace A08Server {
         return names.join('<br/>');
     }
 
-    async function calculateResponseText(url: string | undefined): Promise<string> {
+    async function calculateResponseText(url: string | undefined): Promise<string> {    // URL auslesesen
         let antwortText = 'Die URL konnte nicht gefunden werden.';
         if (!url) {
             console.log("URL ist leer");
@@ -87,8 +87,8 @@ export namespace A08Server {
         let urlNew = new Url.URL(url, "http://localhost:8100");
         
 
-        if (urlNew.pathname === "/liste") {
-            antwortText = await userlist();
+        if (urlNew.pathname === "/liste") {                             //wenn if-Bedingung greift, Antwort beschreiben und zurückgeben
+            antwortText = await userlist();                                 
         }
         else if (urlNew.pathname === "/registrierung") {
             antwortText = await doRegister(urlNew.searchParams);
@@ -104,12 +104,12 @@ export namespace A08Server {
     async function onRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         
 
-        let response = await calculateResponseText(_request.url);
+        let response = await calculateResponseText(_request.url);                   //Antwort empfangen
 
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
 
-        _response.write(response);
+        _response.write(response);                                                  //Antwort herausgeben
 
         _response.end();
     }
