@@ -98,10 +98,10 @@ var A08Server;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        vorname = request.get('vorname');
-                        nachname = request.get('nachname');
-                        password = request.get('password');
-                        email = request.get('email');
+                        vorname = request.get("vorname");
+                        nachname = request.get("nachname");
+                        password = request.get("password");
+                        email = request.get("email");
                         if (!vorname || !nachname || !password || !email) { //wenn eines der Felder nicht gefüllt ist, dann wird der String zurückgegeben
                             return [2 /*return*/, "Nicht alle Pflichtfelder sind gefüllt."];
                         }
@@ -125,8 +125,8 @@ var A08Server;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        email = request.get('email');
-                        password = request.get('password');
+                        email = request.get("email");
+                        password = request.get("password");
                         if (!email || !password) { //Falls eines der beiden nicht gesetzt ist, dann Fehlermeldung 
                             return [2 /*return*/, "Nicht alle Felder wurden ausgefüllt."];
                         }
@@ -152,7 +152,7 @@ var A08Server;
                         names = result.map(function (user) {
                             return user.vorname + " " + user.nachname;
                         });
-                        return [2 /*return*/, names.join('<br/>')];
+                        return [2 /*return*/, names.join("<br/>")];
                 }
             });
         });
@@ -163,7 +163,7 @@ var A08Server;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        antwortText = 'Die URL konnte nicht gefunden werden.';
+                        antwortText = "Die URL konnte nicht gefunden werden.";
                         if (!url) {
                             console.log("URL ist leer");
                             return [2 /*return*/, antwortText];
@@ -201,7 +201,7 @@ var A08Server;
                         response = _a.sent();
                         _response.setHeader("content-type", "text/html; charset=utf-8");
                         _response.setHeader("Access-Control-Allow-Origin", "*");
-                        _response.write(response);
+                        _response.write(response); //Antwort herausgeben
                         _response.end();
                         return [2 /*return*/];
                 }
